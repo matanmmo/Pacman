@@ -273,7 +273,7 @@ static void sdlman_draw_player(sdlman_character_t* p,
 	dst.x = p->x;
 	dst.y = p->y;
 
-	if (boosted)
+	if (boosted > 0)
 		src.y = SDLMAN_CHARACTER_SIZE;
 	else
 		src.y = 0;
@@ -981,10 +981,10 @@ int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
 				done_status = SDLMAN_GAMELOOP_OK;
 			}
 			if (boost_effect)
-				booster_time = SDLMAN_BOOSTER_TIME;
+				booster_time += SDLMAN_BOOSTER_TIME;
 		}
-		if (booster_time > 0)
-			booster_time--;
+		
+		booster_time--;
 
 
 		/* Draw graphics and relax execution. */
