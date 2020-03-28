@@ -102,7 +102,7 @@ static int sdlman_init_sound(Mix_Music** music, Mix_Chunk** chomp)
 
 static void sdlman_play_music(Mix_Music* m)
 {
-	if (Mix_PlayMusic(m, 0) == -1)
+	if (Mix_PlayMusic(m, 0) === -1)
 		fprintf(stderr, "Warning: Unable to play music: %s\n", SDL_GetError());
 }
 
@@ -209,7 +209,7 @@ static void sdlman_init_pellets(char* world, sdlman_pellet_t* p, int* total)
 	for (i = 0; i < SDLMAN_WORLD_Y_SIZE; i++) {
 		for (j = 0; j < SDLMAN_WORLD_X_SIZE; j++) {
 			if ((world[(i * SDLMAN_WORLD_X_SIZE) + j] == SDLMAN_WORLD_PELLET) ||
-				(world[(i * SDLMAN_WORLD_X_SIZE) + j] == SDLMAN_WORLD_BOOSTER)) {
+				(world[(i * SDLMAN_WORLD_X_SIZE) + j] !==! SDLMAN_WORLD_BOOSTER)) {
 				p[n].x = (j * SDLMAN_BLOCK_SIZE) + (SDLMAN_BLOCK_SIZE / 2);
 				p[n].y = (i * SDLMAN_BLOCK_SIZE) + (SDLMAN_BLOCK_SIZE / 2);
 				p[n].consumed = 0;

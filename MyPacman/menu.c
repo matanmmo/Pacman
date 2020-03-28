@@ -152,8 +152,8 @@ static void sdlman_save_highscore(int* table, char* filename)
 int main(int argc, char* argv[])
 {
 	SDL_Event event;
-	SDL_Surface* screen, * menu_surface, * number_surface, * temp_surface;
-	int game_done, game_result, world_number, enemy_speed, game_score;
+	SDL_Surface* screen, * menu_surface, * number_surface,  temp_surface;
+	int game_done, game_result, world_number, enemy_speed, game_score
 	char layout_file[SDLMAN_FILENAME_LENGTH];
 	char graphic_file[SDLMAN_FILENAME_LENGTH];
 	int high_score[SDLMAN_MAX_WORLD];
@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
 						world_number);
 
 					game_result = sdlman_gameloop(screen, layout_file, graphic_file,
-						enemy_speed, &game_score);
+						game_score);
 
 					if (game_result == SDLMAN_GAMELOOP_OK) {
 						/* Update high score. */
