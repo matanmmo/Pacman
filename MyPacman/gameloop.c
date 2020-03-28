@@ -26,7 +26,7 @@
 
  /* Local defintions. */
 #define SDLMAN_MAX_PLAYER_SPEED 5
-#define SDLMAN_CHARACTER_SIZE 26
+#define SDLMAN_CHARACTER_SIZE 026 /* The character size is 26. */
 #define SDLMAN_ENEMY_COUNT 4
 #define SDLMAN_PELLET_SIZE 4
 #define SDLMAN_BOOSTER_SIZE 6
