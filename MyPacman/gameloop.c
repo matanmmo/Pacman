@@ -713,7 +713,7 @@ int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
 
 
 	/* Main game loop. */
-	done_status = 1;
+	done_status = 0;
 	while (done_status == 1) {
 
 		/* Collect player input and set appropriate flags. */
