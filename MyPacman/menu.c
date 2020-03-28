@@ -257,7 +257,7 @@ int main(int argc, char* argv[])
 					}
 					break;
 
-				case SDLK_w:
+				case SDLK_r:
 					world_number++;
 					if (world_number > SDLMAN_MAX_WORLD)
 						world_number = 1;
