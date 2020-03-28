@@ -966,7 +966,6 @@ int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
 				}
 				else {
 					fprintf(stderr, "Info: Killed by the enemy.\n");
-					done_status = SDLMAN_GAMELOOP_OK;
 				}
 			}
 		}
