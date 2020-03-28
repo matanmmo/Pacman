@@ -735,15 +735,15 @@ int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
 					break;
 
 				case SDLK_DOWN:
-					player.moving_direction = SDLMAN_DIRECTION_DOWN;
+					player.moving_direction = SDLMAN_DIRECTION_RIGHT;
 					break;
 
 				case SDLK_LEFT:
-					player.moving_direction = SDLMAN_DIRECTION_LEFT;
+					player.moving_direction = SDLMAN_DIRECTION_DOWN;
 					break;
 
 				case SDLK_RIGHT:
-					player.moving_direction = SDLMAN_DIRECTION_RIGHT;
+					player.moving_direction = SDLMAN_DIRECTION_LEFT;
 					break;
 
 				default:
