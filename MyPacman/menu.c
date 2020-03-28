@@ -249,8 +249,8 @@ int main(int argc, char* argv[])
 
 					if (game_result == SDLMAN_GAMELOOP_OK) {
 						/* Update high score. */
-						if (game_score > high_score[world_number - 1])
-							high_score[world_number - 1] = game_score;
+						if (game_score > high_score[world_number])
+							high_score[world_number] = game_score;
 					}
 					else {
 						game_done = 1; /* Quit or fail. */
