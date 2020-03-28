@@ -19,15 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="sdlman.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameloop.c" />
     <ClCompile Include="menu.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="MyPacman.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="AppResources\menu.bmp" />
@@ -102,8 +98,8 @@
       <AdditionalDependencies>SDL_mixer.lib;SDL.lib;SDLmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)dlls"  "$(Outdir)"
-xcopy "$(ProjectDir)AppResources " "$(Outdir)"</Command>
+      <Command>xcopy "$(ProjectDir)dlls"  "$(Outdir)" /Y
+xcopy "$(ProjectDir)AppResources" "$(Outdir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
