@@ -25,9 +25,6 @@
     <ClCompile Include="gameloop.c" />
     <ClCompile Include="menu.c" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="AppResources\menu.bmp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1840A93D-7370-4E88-B457-BA210CFD1B5F}</ProjectGuid>
