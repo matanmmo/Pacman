@@ -40,6 +40,17 @@
     <None Include="AppResources\world4.layout" />
     <None Include="AppResources\world5.layout" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="AppResources\enemy.bmp" />
+    <Image Include="AppResources\menu.bmp" />
+    <Image Include="AppResources\number.bmp" />
+    <Image Include="AppResources\player.bmp" />
+    <Image Include="AppResources\world1.bmp" />
+    <Image Include="AppResources\world2.bmp" />
+    <Image Include="AppResources\world3.bmp" />
+    <Image Include="AppResources\world4.bmp" />
+    <Image Include="AppResources\world5.bmp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1840A93D-7370-4E88-B457-BA210CFD1B5F}</ProjectGuid>

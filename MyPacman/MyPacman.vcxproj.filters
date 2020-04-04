@@ -50,4 +50,33 @@
     <None Include="AppResources\world2.layout" />
     <None Include="AppResources\world1.layout" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="AppResources\world5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\world4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\world3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\world2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\world1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\number.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\menu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="AppResources\enemy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

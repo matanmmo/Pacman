@@ -23,7 +23,7 @@
 #include "resource.h"
 #include <SDL_main.h> /* To remap main() for portability. */
 #include <time.h> /* To seed randomizer. */
-
+#include<Windows.h>
 
 
 #define SDLMAN_FILENAME_LENGTH 16
@@ -148,6 +148,29 @@ static void sdlman_save_highscore(int* table, char* filename)
 	}
 }
 
+static SDL_Surface* sdlman_load_surface_from_resources(int resource_id) {
+	HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(resource_id), "PICTURE");
+	if (hRes == NULL) {
+		return NULL;
+	}
+
+	unsigned int resource_size = SizeofResource(NULL, hRes);
+	HGLOBAL hResLoad = LoadResource(NULL, hRes);
+	if (hResLoad == NULL)
+	{
+		return NULL;
+	}
+
+	unsigned char* resource_data = (unsigned char*)LockResource(hResLoad);
+	FILE* ptr = fopen("menu.bmp", "r");
+	char arrayy[1024];
+	//fwrite(resource_data, sizeof(char), resource_size - 16, ptr);
+	fread(arrayy, sizeof(char), 1024, ptr);
+	SDL_Surface* surface = SDL_LoadBMP_RW(SDL_RWFromConstMem(resource_data, resource_size), 1);
+	fprintf(stderr, "Error: Unable to initalize SDL: %s\n", SDL_GetError());
+	return surface;
+}
+
 
 
 int main(int argc, char* argv[])
@@ -155,9 +178,10 @@ int main(int argc, char* argv[])
 	SDL_Event event;
 	SDL_Surface* screen, * menu_surface, * number_surface, * temp_surface;
 	int game_done, game_result, world_number, enemy_speed, game_score;
-	char layout_resources_ids[SDLMAN_MAX_WORLD] = {IDR_WOTLD_1_LAYOUT, IDR_WOTLD_2_LAYOUT,
+	int layout_resources_ids[SDLMAN_MAX_WORLD] = {IDR_WOTLD_1_LAYOUT, IDR_WOTLD_2_LAYOUT,
 		                                           IDR_WOTLD_3_LAYOUT ,IDR_WOTLD_4_LAYOUT ,IDR_WOTLD_5_LAYOUT };
-	char graphic_file[SDLMAN_FILENAME_LENGTH];
+	int graphic_resources_ids[SDLMAN_MAX_WORLD] = { IDB_WORLD_1_BITMAP, IDB_WORLD_2_BITMAP,
+												   IDB_WORLD_3_BITMAP ,IDB_WORLD_4_BITMAP ,IDB_WORLD_5_BITMAP };
 	int high_score[SDLMAN_MAX_WORLD];
 
 	/* Use srand() instead of srandom() to be more portable. */
@@ -182,7 +206,7 @@ int main(int argc, char* argv[])
 
 
 	/* Load and convert menu graphic files. */
-	temp_surface = SDL_LoadBMP("menu.bmp");
+	temp_surface = sdlman_load_surface_from_resources(IDB_MENU_BITMAP);
 	if (temp_surface == NULL) {
 		fprintf(stderr, "Error: Unable to load menu graphics: %s\n",
 			SDL_GetError());
@@ -198,7 +222,7 @@ int main(int argc, char* argv[])
 		SDL_FreeSurface(temp_surface);
 	}
 
-	temp_surface = SDL_LoadBMP("number.bmp");
+	temp_surface = sdlman_load_surface_from_resources(IDB_NUMBER_BITMAP);
 	if (temp_surface == NULL) {
 		fprintf(stderr, "Error: Unable to load number graphics: %s\n",
 			SDL_GetError());
@@ -241,10 +265,7 @@ int main(int argc, char* argv[])
 
 				case SDLK_RETURN:
 				case SDLK_SPACE:
-					snprintf(graphic_file, SDLMAN_FILENAME_LENGTH, "world%d.bmp",
-						world_number);
-
-					game_result = sdlman_gameloop(screen, layout_resources_ids[world_number-1], graphic_file,
+					game_result = sdlman_gameloop(screen, layout_resources_ids[world_number-1], graphic_resources_ids[world_number-1],
 						enemy_speed, &game_score);
 
 					if (game_result == SDLMAN_GAMELOOP_OK) {

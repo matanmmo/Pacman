@@ -659,10 +659,31 @@ static int sdlman_enemy_direction_opening(sdlman_character_t* e, char* world)
 	return 0; /* No direction found. */
 }
 
+static SDL_Surface* sdlman_load_surface_from_resources(int resource_id) {
+	HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(resource_id), "PICTURE");
+	if (hRes == NULL) {
+		return NULL;
+	}
 
+	unsigned int resource_size = SizeofResource(NULL, hRes);
+	HGLOBAL hResLoad = LoadResource(NULL, hRes);
+	if (hResLoad == NULL)
+	{
+		return NULL;
+	}
+
+	unsigned char* resource_data = (unsigned char*)LockResource(hResLoad);
+	FILE* ptr = fopen("menu.bmp", "r");
+	char arrayy[1024];
+	//fwrite(resource_data, sizeof(char), resource_size - 16, ptr);
+	fread(arrayy, sizeof(char), 1024, ptr);
+	SDL_Surface* surface = SDL_LoadBMP_RW(SDL_RWFromConstMem(resource_data, resource_size), 1);
+	fprintf(stderr, "Error: Unable to initalize SDL: %s\n", SDL_GetError());
+	return surface;
+}
 
 int sdlman_gameloop(SDL_Surface* screen, int layout_resource_id,
-	char* world_graphic_file, int enemy_speed, int* score)
+	int world_graphic_resource_id, int enemy_speed, int* score)
 {
 	int i, j, temp_x, temp_y, collision, direction, done_status;
 	SDL_Event event;
@@ -699,7 +720,7 @@ int sdlman_gameloop(SDL_Surface* screen, int layout_resource_id,
 	boost_effect = all_pellets_consumed = booster_time = 0;
 
 	/* Load and convert graphic files. */
-	temp_surface = SDL_LoadBMP("player.bmp");
+	temp_surface = sdlman_load_surface_from_resources(IDB_PLAYER_BITMAP);
 	if (temp_surface == NULL) {
 		fprintf(stderr, "Error: Unable to load player graphics: %s\n",
 			SDL_GetError());
@@ -715,7 +736,7 @@ int sdlman_gameloop(SDL_Surface* screen, int layout_resource_id,
 		SDL_FreeSurface(temp_surface);
 	}
 
-	temp_surface = SDL_LoadBMP("enemy.bmp");
+	temp_surface = sdlman_load_surface_from_resources(IDB_ENEMY_BITMAP);
 	if (temp_surface == NULL) {
 		fprintf(stderr, "Error: Unable to load enemy graphics: %s\n",
 			SDL_GetError());
@@ -733,7 +754,7 @@ int sdlman_gameloop(SDL_Surface* screen, int layout_resource_id,
 		SDL_FreeSurface(temp_surface);
 	}
 
-	temp_surface = SDL_LoadBMP(world_graphic_file);
+	temp_surface = sdlman_load_surface_from_resources(world_graphic_resource_id);
 	if (temp_surface == NULL) {
 		fprintf(stderr, "Warning: Unable to load world graphics: %s\n",
 			SDL_GetError());
