@@ -162,16 +162,9 @@ static SDL_Surface* sdlman_load_surface_from_resources(int resource_id) {
 	}
 
 	unsigned char* resource_data = (unsigned char*)LockResource(hResLoad);
-	FILE* ptr = fopen("menu.bmp", "r");
-	char arrayy[1024];
-	//fwrite(resource_data, sizeof(char), resource_size - 16, ptr);
-	fread(arrayy, sizeof(char), 1024, ptr);
 	SDL_Surface* surface = SDL_LoadBMP_RW(SDL_RWFromConstMem(resource_data, resource_size), 1);
-	fprintf(stderr, "Error: Unable to initalize SDL: %s\n", SDL_GetError());
 	return surface;
 }
-
-
 
 int main(int argc, char* argv[])
 {
