@@ -101,6 +101,9 @@
       <Command>xcopy "$(ProjectDir)dlls"  "$(Outdir)" /Y
 xcopy "$(ProjectDir)AppResources" "$(Outdir)" /Y</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /s /q $(OutDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
