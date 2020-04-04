@@ -20,6 +20,7 @@
  */
 
 #include "sdlman.h"
+#include "resource.h"
 #include <SDL_main.h> /* To remap main() for portability. */
 #include <time.h> /* To seed randomizer. */
 
@@ -154,7 +155,8 @@ int main(int argc, char* argv[])
 	SDL_Event event;
 	SDL_Surface* screen, * menu_surface, * number_surface, * temp_surface;
 	int game_done, game_result, world_number, enemy_speed, game_score;
-	char layout_file[SDLMAN_FILENAME_LENGTH];
+	char layout_resources_ids[SDLMAN_MAX_WORLD] = {IDR_WOTLD_1_LAYOUT, IDR_WOTLD_2_LAYOUT,
+		                                           IDR_WOTLD_3_LAYOUT ,IDR_WOTLD_4_LAYOUT ,IDR_WOTLD_5_LAYOUT };
 	char graphic_file[SDLMAN_FILENAME_LENGTH];
 	int high_score[SDLMAN_MAX_WORLD];
 
@@ -239,12 +241,10 @@ int main(int argc, char* argv[])
 
 				case SDLK_RETURN:
 				case SDLK_SPACE:
-					snprintf(layout_file, SDLMAN_FILENAME_LENGTH, "world%d.layout",
-						world_number);
 					snprintf(graphic_file, SDLMAN_FILENAME_LENGTH, "world%d.bmp",
 						world_number);
 
-					game_result = sdlman_gameloop(screen, layout_file, graphic_file,
+					game_result = sdlman_gameloop(screen, layout_resources_ids[world_number-1], graphic_file,
 						enemy_speed, &game_score);
 
 					if (game_result == SDLMAN_GAMELOOP_OK) {

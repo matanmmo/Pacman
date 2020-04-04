@@ -33,6 +33,13 @@
     <Media Include="AppResources\chomp.wav" />
     <Media Include="AppResources\music.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AppResources\world1.layout" />
+    <None Include="AppResources\world2.layout" />
+    <None Include="AppResources\world3.layout" />
+    <None Include="AppResources\world4.layout" />
+    <None Include="AppResources\world5.layout" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1840A93D-7370-4E88-B457-BA210CFD1B5F}</ProjectGuid>

@@ -151,35 +151,51 @@ static void sdlman_play_sound(Mix_Chunk* s)
 		fprintf(stderr, "Warning: Unable to play sound: %s\n", SDL_GetError());
 }
 
-
-
-static int sdlman_load_world(char* filename, char* world)
-{
-	int c, w, h;
-	FILE* fh;
-
-	fh = fopen(filename, "r");
-	if (fh == NULL) {
-		fprintf(stderr, "Error: Cannot open file '%s' for reading.\n", filename);
-		return -1;
+static void sdlman_load_layout_resource(int layout_resource_id, char** layout_data, int* size) {
+	HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(layout_resource_id), TEXT("LAYOUT"));
+	if (hRes == NULL) {
+		return NULL;
 	}
+
+	*size = SizeofResource(NULL, hRes);
+	HGLOBAL hResLoad = LoadResource(NULL, hRes);
+	if (hResLoad == NULL)
+	{
+		return NULL;
+	}
+
+	*layout_data = (char*)LockResource(hResLoad);
+	return;
+}
+
+static int sdlman_load_world(int layout_resource_id, char* world)
+{
+	int i = 0;
+	int w, h;
+	int size;
+	char* world_data;
+
+	sdlman_load_layout_resource(layout_resource_id, &world_data, &size);
 
 	w = 0;
 	h = 0;
-	while ((c = fgetc(fh)) != EOF) {
-		if (c == '\n' || w >= SDLMAN_WORLD_X_SIZE) {
+	for (i = 0; i < size ; i++) {
+		if (world_data[i] == '\r') {
+			continue;
+		}
+
+		if (world_data[i] == '\n' || w >= SDLMAN_WORLD_X_SIZE) {
 			w = 0;
 			h++;
 			if (h >= SDLMAN_WORLD_Y_SIZE)
 				return 0; /* Limit reached, bail out. */
 		}
 		else {
-			world[(h * SDLMAN_WORLD_X_SIZE) + w] = c;
+			world[(h * SDLMAN_WORLD_X_SIZE) + w] = world_data[i];
 			w++;
 		}
 	}
 
-	fclose(fh);
 	return 0;
 }
 
@@ -645,7 +661,7 @@ static int sdlman_enemy_direction_opening(sdlman_character_t* e, char* world)
 
 
 
-int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
+int sdlman_gameloop(SDL_Surface* screen, int layout_resource_id,
 	char* world_graphic_file, int enemy_speed, int* score)
 {
 	int i, j, temp_x, temp_y, collision, direction, done_status;
@@ -658,7 +674,7 @@ int sdlman_gameloop(SDL_Surface* screen, char* world_layout_file,
 	sdlman_pellet_t pellet[SDLMAN_MAX_PELLET];
 	int total_pellets, boost_effect, all_pellets_consumed, booster_time;
 
-	if (sdlman_load_world(world_layout_file, world) != 0) {
+	if (sdlman_load_world(layout_resource_id, world) != 0) {
 		fprintf(stderr, "Error: Unable to load world layout file.\n");
 		return SDLMAN_GAMELOOP_FAIL;
 	}

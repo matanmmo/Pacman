@@ -43,4 +43,11 @@
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AppResources\world5.layout" />
+    <None Include="AppResources\world4.layout" />
+    <None Include="AppResources\world3.layout" />
+    <None Include="AppResources\world2.layout" />
+    <None Include="AppResources\world1.layout" />
+  </ItemGroup>
 </Project>
