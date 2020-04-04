@@ -20,7 +20,9 @@
  */
 
 #include "sdlman.h"
+#include "resource.h"
 #include <SDL_mixer.h> /* For audio. */
+#include <Windows.h>
 
 
 
@@ -70,7 +72,39 @@ typedef struct sdlman_pellet_s {
 	int boost_effect;
 } sdlman_pellet_t;
 
+static Mix_Music* sdlman_load_MUS_from_resources(int resource_id) {
+	HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(resource_id), TEXT("WAVE"));
+	if (hRes == NULL) {
+		return NULL;
+	}
 
+	unsigned int resource_size = SizeofResource(NULL, hRes);
+	HGLOBAL hResLoad = LoadResource(NULL, hRes);
+	if (hResLoad == NULL)
+	{
+		return NULL;
+	}
+
+	unsigned char* resource_data = (unsigned char*)LockResource(hResLoad);
+	return Mix_LoadMUS_RW(SDL_RWFromConstMem(resource_data, resource_size));
+}
+
+static Mix_Music* sdlman_load_WAV_from_resources(int resource_id) {
+	HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(resource_id), TEXT("WAVE"));
+	if (hRes == NULL) {
+		return NULL;
+	}
+
+	unsigned int resource_size = SizeofResource(NULL, hRes);
+	HGLOBAL hResLoad = LoadResource(NULL, hRes);
+	if (hResLoad == NULL)
+	{
+		return NULL;
+	}
+
+	unsigned char* resource_data = (unsigned char*)LockResource(hResLoad);
+	return Mix_LoadWAV_RW(SDL_RWFromConstMem(resource_data, resource_size), 1);
+}
 
 static int sdlman_init_sound(Mix_Music** music, Mix_Chunk** chomp)
 {
@@ -80,14 +114,14 @@ static int sdlman_init_sound(Mix_Music** music, Mix_Chunk** chomp)
 		return -1;
 	}
 
-	if (!(*music = Mix_LoadMUS("music.wav"))) {
+	if (!(*music = sdlman_load_MUS_from_resources(IDR_MUSIC_WAVE))) {
 		fprintf(stderr, "Error: Unable to open music sound file: %s\n",
 			SDL_GetError());
 		Mix_CloseAudio();
 		return -1;
 	}
 
-	if (!(*chomp = Mix_LoadWAV("chomp.wav"))) {
+	if (!(*chomp = sdlman_load_WAV_from_resources(IDR_CHOMP_WAVE))) {
 		fprintf(stderr, "Error: Unable to open chomp sound file: %s\n",
 			SDL_GetError());
 		Mix_CloseAudio();

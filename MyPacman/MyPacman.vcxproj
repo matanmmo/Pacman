@@ -19,11 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="sdlman.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameloop.c" />
     <ClCompile Include="menu.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="AppResources\chomp.wav" />
+    <Media Include="AppResources\music.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
