@@ -121,8 +121,7 @@
       <AdditionalDependencies>SDL_mixer.lib;SDL.lib;SDLmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)dlls"  "$(Outdir)" /Y
-xcopy "$(ProjectDir)AppResources" "$(Outdir)" /Y</Command>
+      <Command>xcopy "$(ProjectDir)dlls"  "$(Outdir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
